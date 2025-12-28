@@ -14,6 +14,8 @@ composeMultiplatform = "1.9.3"
 junit = "4.13.2"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
+okio = "3.16.4"
+koin = "4.1.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -27,6 +29,11 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+okio = {module = "com.squareup.okio:okio", version.ref = "okio"}
+kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "kotlinx-coroutines"}
+insert-koin-core = {module ="io.insert-koin:koin-core",version.ref = "koin" }
+insert-koin-android = {module = "io.insert-koin:koin-android",version.ref = "koin"}
+okio-jvm = {module = "com.squareup.okio:okio-jvm",version.ref = "okio"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
