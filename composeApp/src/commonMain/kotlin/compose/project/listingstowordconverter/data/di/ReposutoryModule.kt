@@ -1,6 +1,6 @@
 package compose.project.listingstowordconverter.data.di
 
-import com.example.listingstowordconverter.data.source.AppFileSystem
+import compose.project.listingstowordconverter.data.source.AppFileSystem
 import okio.FileSystem
 import org.koin.dsl.module
 

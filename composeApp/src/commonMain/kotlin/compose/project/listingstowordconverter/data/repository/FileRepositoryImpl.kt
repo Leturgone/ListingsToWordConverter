@@ -1,4 +1,4 @@
-package compose.project.listingsconverter.data.repository
+package compose.project.listingstowordconverter.data.repository
 
 import compose.project.listingsconverter.domain.model.FileWithCodeModel
 import compose.project.listingsconverter.domain.model.FolderModel
