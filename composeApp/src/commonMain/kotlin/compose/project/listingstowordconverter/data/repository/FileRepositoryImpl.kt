@@ -6,6 +6,8 @@ import compose.project.listingsconverter.domain.repository.FileRepository
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
 
@@ -80,6 +82,24 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
         }catch (e: Exception) {
             Result.failure(e)
         }
+    }
+
+    @Suppress("SimpleDateFormat")
+    override suspend fun saveFile(content: ByteArray): Result<String> {
+        return try {
+
+            val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+            val outputFileName = "listing_$timestamp.docx"
+            val filePath = "documents/$outputFileName".toPath()
+            fileSystem.write(filePath){
+                write(content)
+            }
+
+            Result.success(filePath.toString())
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+
     }
 
     private fun getFileExtension(filename: String): String {
