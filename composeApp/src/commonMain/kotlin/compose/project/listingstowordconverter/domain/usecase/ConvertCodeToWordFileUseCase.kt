@@ -13,8 +13,11 @@ class ConvertCodeToWordFileUseCase(
                 fileRepository.readAllFiles(rootFolder).fold(
                     onSuccess = { files ->
                         wordRepository.convertFilesToWord(files).fold(
-                            onSuccess = { pathToWordFile -> Result.success(pathToWordFile)},
-
+                            onSuccess = { byteArrayWordFile ->
+                                fileRepository.saveFile(byteArrayWordFile).fold(
+                                    onSuccess = {pathToWordFile -> Result.success(pathToWordFile)},
+                                    onFailure = {error -> Result.failure(error)}
+                                )},
                             onFailure = {error -> Result.failure(error)}
                         )
                     },
