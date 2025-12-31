@@ -36,6 +36,7 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.insert.koin.core)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.apache.poi.poi.ooxml )
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
