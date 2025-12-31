@@ -16,6 +16,7 @@ kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
 okio = "3.16.4"
 koin = "4.1.1"
+apache-poi = "5.5.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -34,6 +35,7 @@ kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-co
 insert-koin-core = {module ="io.insert-koin:koin-core",version.ref = "koin" }
 insert-koin-android = {module = "io.insert-koin:koin-android",version.ref = "koin"}
 okio-jvm = {module = "com.squareup.okio:okio-jvm",version.ref = "okio"}
+apache-poi-poi-ooxml = {module ="org.apache.poi:poi-ooxml",version.ref = "apache-poi" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
