@@ -4,5 +4,5 @@ import compose.project.listingsconverter.domain.model.FileWithCodeModel
 
 interface WordRepository {
 
-    suspend fun convertFilesToWord(files: List<FileWithCodeModel>): Result<String>
+    suspend fun convertFilesToWord(files: List<FileWithCodeModel>): Result<ByteArray>
 }
