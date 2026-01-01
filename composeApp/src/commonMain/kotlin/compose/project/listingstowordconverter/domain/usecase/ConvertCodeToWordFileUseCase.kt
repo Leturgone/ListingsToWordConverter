@@ -1,4 +1,4 @@
-package compose.project.listingsconverter.domain.usecase
+package compose.project.listingstowordconverter.domain.usecase
 
 import compose.project.listingsconverter.domain.repository.FileRepository
 import compose.project.listingsconverter.domain.repository.WordRepository
