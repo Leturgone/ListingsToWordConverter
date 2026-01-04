@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.insert.koin.core)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.apache.poi.poi.ooxml )
+            implementation(libs.androidx.material.icons.extended)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
