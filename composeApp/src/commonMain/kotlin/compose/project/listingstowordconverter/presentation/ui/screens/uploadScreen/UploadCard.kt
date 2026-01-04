@@ -51,7 +51,7 @@ fun  UploadCard(
                     val folderPath = platformFolderPathExtractor.extractFolderPath(event)
                     folderPath!!.let { onFolderDropped?.invoke(it) }
                     true
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     false
                 }
             }
