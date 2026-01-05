@@ -1,4 +1,4 @@
-package compose.project.listingstowordconverter.presentation.ui.screens.dragdrop
+package compose.project.listingstowordconverter.presentation.ui.components.dragdrop
 
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 

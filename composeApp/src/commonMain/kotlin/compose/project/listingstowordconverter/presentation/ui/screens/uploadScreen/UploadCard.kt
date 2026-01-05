@@ -29,8 +29,8 @@ import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import compose.project.listingstowordconverter.presentation.ui.mvi.DataState
-import compose.project.listingstowordconverter.presentation.ui.screens.dragdrop.PlatformFolderPathExtractor
+import compose.project.listingstowordconverter.presentation.mvi.DataState
+import compose.project.listingstowordconverter.presentation.ui.components.dragdrop.PlatformFolderPathExtractor
 
 @Composable
 fun  UploadCard(

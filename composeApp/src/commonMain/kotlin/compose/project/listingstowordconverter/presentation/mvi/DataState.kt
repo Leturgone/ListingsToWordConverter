@@ -1,4 +1,4 @@
-package compose.project.listingstowordconverter.presentation.ui.mvi
+package compose.project.listingstowordconverter.presentation.mvi
 
 sealed class DataState {
     object Loading : DataState()
