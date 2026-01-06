@@ -9,13 +9,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlusOne
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,12 +28,13 @@ import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Plus
 import compose.project.listingstowordconverter.presentation.mvi.DataState
 import compose.project.listingstowordconverter.presentation.ui.components.dragdrop.PlatformFolderPathExtractor
 
 @Composable
 fun  UploadCard(
-    modifier: Modifier = Modifier,
     onSelectFolderClicked: () -> Unit,
     onFolderDropped: ((String) -> Unit)? = null,
     isDragEnabled: Boolean = false,
@@ -64,52 +64,51 @@ fun  UploadCard(
         target = dragAndDropTarget
     )
 
-    when(status){
-        is DataState.Error -> {
-            Text(
-                "Ошибка обработки",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.error
-            )
-        }
-        DataState.Loading -> {
-            Row(modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator(modifier = Modifier.size(20.dp))
-                Spacer(modifier = Modifier.width(12.dp))
-                Text("Обработка файлов...")
-            }
-        }
-        is DataState.Success -> {
-            Text("Файл успешно создан!", style = MaterialTheme.typography.titleMedium)
-        }
-        DataState.Default -> {}
-    }
-
     Column(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        when(status){
+            is DataState.Error -> {
+                Text(
+                    "Ошибка обработки",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            DataState.Loading -> {
+                Row(modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(20.dp))
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text("Обработка файлов...")
+                }
+            }
+            is DataState.Success -> {
+                Text("Файл успешно создан!", style = MaterialTheme.typography.titleMedium)
+            }
+            DataState.Default -> {}
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Box(
-            modifier = Modifier
+            modifier = Modifier.clickable{ onSelectFolderClicked() }
                 .then(dropModifier)
-                .size(200.dp)
+                .size(230.dp)
                 .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
                 .border(width = 2.dp, color = Color.Gray, shape = RoundedCornerShape(16.dp))
-                .clickable{
-                    onSelectFolderClicked()
-                }
+
         ){
             Column(
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ){
                 Icon(
-                    imageVector = Icons.Default.PlusOne,
+                    imageVector = TablerIcons.Plus,
                     contentDescription = "Add folder",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(48.dp)
