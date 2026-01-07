@@ -36,6 +36,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.apache.poi.poi.ooxml )
             implementation(libs.composeIcons.tablerIcons)
+            api(libs.androidx.lifecycle.viewmodelCompose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
