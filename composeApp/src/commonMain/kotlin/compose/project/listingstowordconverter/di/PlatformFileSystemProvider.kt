@@ -1,4 +1,4 @@
-package compose.project.listingstowordconverter.data.di
+package compose.project.listingstowordconverter.di
 
 import okio.FileSystem
 
