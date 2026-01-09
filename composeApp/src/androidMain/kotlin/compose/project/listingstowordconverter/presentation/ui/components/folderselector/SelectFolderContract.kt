@@ -12,8 +12,7 @@ class SelectFolderContract: ActivityResultContract<Unit, String?>() {
     ): Intent {
         return Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            addCategory(Intent.CATEGORY_DEFAULT)
-            type = "vnd.android.document/directory"
+            addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         }
     }
 
