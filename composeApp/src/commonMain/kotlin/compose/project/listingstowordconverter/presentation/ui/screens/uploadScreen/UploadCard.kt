@@ -95,7 +95,9 @@ fun  UploadCard(
         Spacer(modifier = Modifier.height(16.dp))
 
         Box(
-            modifier = Modifier.clickable{ onSelectFolderClicked() }
+            modifier = Modifier.clickable{
+                onSelectFolderClicked()
+            }
                 .then(dropModifier)
                 .size(230.dp)
                 .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
