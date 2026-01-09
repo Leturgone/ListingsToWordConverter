@@ -23,6 +23,9 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.insert.koin.android)
+            implementation(libs.androidx.activity.ktx)
+            implementation(libs.insert.koin.compose)
+            implementation(libs.insert.koin.composeVM)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -33,6 +36,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.okio)
             implementation(libs.insert.koin.core)
+            implementation(libs.insert.koin.composeVM)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.apache.poi.poi.ooxml )
             implementation(libs.composeIcons.tablerIcons)
@@ -45,6 +49,7 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.insert.koin.composeVM)
         }
     }
 }
