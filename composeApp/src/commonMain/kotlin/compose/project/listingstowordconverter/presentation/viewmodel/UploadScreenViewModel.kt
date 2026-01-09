@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class UploadScreenViewModel(
     private val convertCodeToWordFileUseCase: ConvertCodeToWordFileUseCase,
-    private val folderSelector: FolderSelector,
+    private val folderSelector: FolderSelector
 ): ViewModel() {
 
     private val _state = MutableStateFlow<DataState>(DataState.Default)
@@ -37,23 +37,44 @@ class UploadScreenViewModel(
         isProcessing = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            val result = convertCodeToWordFileUseCase(path)
             withContext(Dispatchers.Main){
-                result.fold(
-                    onSuccess = {wordFilePath ->
-                        _state.value = DataState.Success(wordFilePath)
-                    },
-                    onFailure = {error ->
-                        _state.value = DataState.Error(error.toString())
-                    }
-                )
+                val result = convertCodeToWordFileUseCase(path)
+                withContext(Dispatchers.Main){
+                    result.fold(
+                        onSuccess = {wordFilePath ->
+                            _state.value = DataState.Success(wordFilePath)
+                        },
+                        onFailure = {error ->
+                            _state.value = DataState.Error(error.toString())
+                        }
+                    )
+                }
             }
             isProcessing = false
         }
     }
 
     private fun loadFilesByOpenExplorer(){
+        if (isProcessing) return
+        viewModelScope.launch() {
+            val path = folderSelector.selectFolder() ?: return@launch
 
+            _state.value = DataState.Loading
+            currentFolderPath = path
+            isProcessing = true
+
+            val result = withContext(Dispatchers.IO) {
+                convertCodeToWordFileUseCase(path)
+            }
+
+            result.fold(
+                onSuccess = { wordFilePath ->
+                    _state.value = DataState.Success(wordFilePath)
+                },
+                onFailure = { error ->
+                    _state.value = DataState.Error(error.toString())
+                }
+            )
+        }
     }
-
 }
