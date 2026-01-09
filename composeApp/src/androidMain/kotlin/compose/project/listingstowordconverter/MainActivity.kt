@@ -12,7 +12,6 @@ import compose.project.listingstowordconverter.di.viewModelModule
 import compose.project.listingstowordconverter.presentation.ui.components.folderselector.FolderSelector
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
-import org.koin.compose.getKoin
 import org.koin.core.context.startKoin
 
 class MainActivity : ComponentActivity() {

@@ -1,7 +1,6 @@
 package compose.project.listingstowordconverter.di
 
 import compose.project.listingstowordconverter.presentation.ui.components.folderselector.FolderSelector
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val androidModule = module {
