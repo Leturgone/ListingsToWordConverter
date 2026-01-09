@@ -80,23 +80,25 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
             )
             Result.success(folder)
         }catch (e: Exception) {
+            println("getRootFolderByPath error $e")
             Result.failure(e)
         }
     }
 
     @Suppress("SimpleDateFormat")
-    override suspend fun saveFile(content: ByteArray): Result<String> {
+    override suspend fun saveFile(content: ByteArray, rootFolder: String): Result<String> {
         return try {
 
             val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
             val outputFileName = "listing_$timestamp.docx"
-            val filePath = "documents/$outputFileName".toPath()
+            val filePath = "$rootFolder/$outputFileName".toPath()
             fileSystem.write(filePath){
                 write(content)
             }
-
+            println("File saved: $filePath")
             Result.success(filePath.toString())
         }catch (e: Exception){
+            println("saveFile error $e")
             Result.failure(e)
         }
 
@@ -120,7 +122,7 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
 
     private fun isCodeFile(filename: String): Boolean {
         val extension = getFileExtension(filename).lowercase()
-        return extension in setOf("kt", "java", "js", "ts", "py", "cpp", "c", "h", "swift", "md", "xml",)
+        return extension in setOf("kt", "java", "js", "ts", "py", "cpp", "c", "h", "swift", "md", "xml","yml","")
     }
 }
 

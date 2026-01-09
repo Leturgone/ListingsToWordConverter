@@ -9,6 +9,6 @@ interface FileRepository {
 
     suspend fun getRootFolderByPath(rootPath: String): Result<FolderModel>
 
-    suspend fun saveFile(content: ByteArray): Result<String>
+    suspend fun saveFile(content: ByteArray, rootFolder: String): Result<String>
 
 }
