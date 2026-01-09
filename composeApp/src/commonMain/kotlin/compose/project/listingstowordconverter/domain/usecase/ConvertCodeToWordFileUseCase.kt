@@ -14,7 +14,7 @@ class ConvertCodeToWordFileUseCase(
                     onSuccess = { files ->
                         wordRepository.convertFilesToWord(files).fold(
                             onSuccess = { byteArrayWordFile ->
-                                fileRepository.saveFile(byteArrayWordFile).fold(
+                                fileRepository.saveFile(byteArrayWordFile, rootPath).fold(
                                     onSuccess = {pathToWordFile -> Result.success(pathToWordFile)},
                                     onFailure = {error -> Result.failure(error)}
                                 )},
