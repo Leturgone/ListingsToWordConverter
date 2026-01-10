@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import compose.project.listingstowordconverter.data.source.AppFileSystem
 import compose.project.listingstowordconverter.di.androidModule
-import compose.project.listingstowordconverter.di.appFileSystemModule
 import compose.project.listingstowordconverter.di.viewModelModule
 import compose.project.listingstowordconverter.presentation.ui.components.folderselector.FolderSelector
 import org.koin.android.ext.android.getKoin
@@ -21,9 +21,12 @@ class MainActivity : ComponentActivity() {
 
         startKoin {
             androidContext(this@MainActivity)
-            modules(appFileSystemModule + viewModelModule + androidModule)
+            modules(viewModelModule + androidModule)
         }
+
         getKoin().get<FolderSelector>().init(this)
+        getKoin().get<AppFileSystem>().init(this)
+
         setContent {
             AndroidApp()
         }

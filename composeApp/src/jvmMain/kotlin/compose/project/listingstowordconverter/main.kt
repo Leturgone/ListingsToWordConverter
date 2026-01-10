@@ -2,9 +2,8 @@ package compose.project.listingstowordconverter
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import compose.project.listingstowordconverter.di.appFileSystemModule
-import compose.project.listingstowordconverter.di.viewModelModule
 import compose.project.listingstowordconverter.di.jvmModule
+import compose.project.listingstowordconverter.di.viewModelModule
 import org.koin.core.context.startKoin
 
 fun main() = application {
@@ -13,7 +12,7 @@ fun main() = application {
         title = "ListingsToWordConverter",
     ) {
         startKoin {
-            modules(appFileSystemModule +viewModelModule+ jvmModule)
+            modules(viewModelModule+ jvmModule)
         }
         DesktopApp()
     }
