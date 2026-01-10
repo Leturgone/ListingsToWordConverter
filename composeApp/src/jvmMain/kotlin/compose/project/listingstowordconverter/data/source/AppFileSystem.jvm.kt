@@ -24,4 +24,7 @@ actual class AppFileSystem actual constructor() {
         val filePath = "$saveFolderPath/$fileName".toPath()
         fileSystem.sink(filePath).buffer().use { it.write(content) }
     }
+
+    actual fun getFileName(path: String): String  = path.toPath().name
+
 }
