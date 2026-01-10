@@ -11,8 +11,10 @@ actual class PlatformFolderPathExtractor actual constructor() {
     @OptIn(ExperimentalComposeUiApi::class)
     actual fun extractFolderPath(event: DragAndDropEvent): String? {
         return try {
+
             val transferable = event.awtTransferable
             val folderFlavor = DataFlavor.javaFileListFlavor
+
             // Check support of file list (folder)
             if (transferable.isDataFlavorSupported(folderFlavor)){
                 val files = transferable.getTransferData(folderFlavor) as List<*>

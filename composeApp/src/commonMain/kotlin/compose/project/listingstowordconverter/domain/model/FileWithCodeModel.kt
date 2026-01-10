@@ -1,4 +1,4 @@
-package compose.project.listingsconverter.domain.model
+package compose.project.listingstowordconverter.domain.model
 
 data class FileWithCodeModel(
     override val name: String,

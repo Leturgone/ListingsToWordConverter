@@ -7,7 +7,6 @@ import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -78,56 +77,60 @@ fun  UploadCard(
                 )
             }
             DataState.Loading -> {
-                Row(modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
+                Column (modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CircularProgressIndicator(modifier = Modifier.size(20.dp))
-                    Spacer(modifier = Modifier.width(12.dp))
+                    CircularProgressIndicator(modifier = Modifier.size(80.dp))
+                    Spacer(modifier = Modifier.width(20.dp))
                     Text("Обработка файлов...")
                 }
             }
             is DataState.Success -> {
                 Text("Файл успешно создан!", style = MaterialTheme.typography.titleMedium)
             }
-            DataState.Default -> {}
+            DataState.Default -> {
+                Box(
+                    modifier = Modifier.clickable{
+                        onSelectFolderClicked()
+                    }
+                        .then(dropModifier)
+                        .size(230.dp)
+                        .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
+                        .border(width = 2.dp, color = Color.Gray, shape = RoundedCornerShape(16.dp))
+
+                ){
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ){
+                        Icon(
+                            imageVector = TablerIcons.Plus,
+                            contentDescription = "Add folder",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(48.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = buildString {
+                                append("Нажмите для выбора папки")
+                                if (isDragEnabled) {
+                                    append("\nили перетащите папку сюда")
+                                }
+                            },
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Box(
-            modifier = Modifier.clickable{ onSelectFolderClicked() }
-                .then(dropModifier)
-                .size(230.dp)
-                .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
-                .border(width = 2.dp, color = Color.Gray, shape = RoundedCornerShape(16.dp))
 
-        ){
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ){
-                Icon(
-                    imageVector = TablerIcons.Plus,
-                    contentDescription = "Add folder",
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(48.dp)
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = buildString {
-                        append("Нажмите для выбора папки")
-                        if (isDragEnabled) {
-                            append("\nили перетащите папку сюда")
-                        }
-                    },
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
     }
 }
