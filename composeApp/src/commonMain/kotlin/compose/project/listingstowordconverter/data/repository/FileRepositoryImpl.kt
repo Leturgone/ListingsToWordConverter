@@ -2,18 +2,18 @@ package compose.project.listingstowordconverter.data.repository
 
 import compose.project.listingsconverter.domain.model.FileWithCodeModel
 import compose.project.listingsconverter.domain.model.FolderModel
-import compose.project.listingsconverter.domain.repository.FileRepository
-import okio.FileSystem
-import okio.Path
+import compose.project.listingstowordconverter.data.source.AppFileSystem
+import compose.project.listingstowordconverter.domain.repository.FileRepository
 import okio.Path.Companion.toPath
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
+class FileRepositoryImpl(
+    private val fileSystem: AppFileSystem): FileRepository{
 
     override suspend fun readAllFiles(rootFolder: FolderModel): Result<List<FileWithCodeModel>> {
         return try {
-            val rootPath = rootFolder.relativePath.toPath()
+            val rootPath = rootFolder.relativePath
             val files = traverseWithBFS(rootPath, rootPath)
             Result.success(files)
         } catch (e: Exception) {
@@ -21,9 +21,9 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
         }
     }
 
-    private fun traverseWithBFS(startPath: Path, rootPath: Path): List<FileWithCodeModel>{
+    private fun traverseWithBFS(startPath: String, rootPath: String): List<FileWithCodeModel>{
         val files = mutableListOf<FileWithCodeModel>()
-        val queue = ArrayDeque<Path>()
+        val queue = ArrayDeque<String>()
         queue.addLast(startPath)
 
         var directoriesProcessed = 0
@@ -40,7 +40,7 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
                     when{
                         // Добавляем директорию в конец очереди
                         metadata.isDirectory -> queue.addLast(path)
-                        metadata.isRegularFile  && isCodeFile(path.name)-> {
+                        metadata.isRegularFile  && isCodeFile(path.toPath().name)-> {
                             filesFound++
                             val file = createFileModel(path,rootPath)
                             files.add(file)
@@ -50,6 +50,7 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
                 }
             }catch (e: Exception) {
                 // Логируем ошибку, но продолжаем обход
+                e.printStackTrace()
                 println("Cannot access directory: $currentDir - ${e.message}")
             }
             if (directoriesProcessed > 10000) {
@@ -65,40 +66,39 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
 
     override suspend fun getRootFolderByPath(rootPath: String): Result<FolderModel> {
         return  try {
-            val path = rootPath.toPath()
 
-            if (!fileSystem.exists(path)) return Result.failure(IllegalArgumentException("Path does not exist: $rootPath"))
+            if (!fileSystem.exists(rootPath)) return Result.failure(IllegalArgumentException("Path does not exist: $rootPath"))
 
-            val metadata = fileSystem.metadata(path)
+            val metadata = fileSystem.metadata(rootPath)
 
             if (!metadata.isDirectory) return Result.failure(IllegalArgumentException("Path is not a directory: $rootPath"))
 
 
             val folder = FolderModel(
-                name = path.name,
+                name = rootPath.toPath().name,
                 relativePath = rootPath
             )
             Result.success(folder)
         }catch (e: Exception) {
             println("getRootFolderByPath error $e")
+            e.printStackTrace()
             Result.failure(e)
         }
     }
 
     @Suppress("SimpleDateFormat")
-    override suspend fun saveFile(content: ByteArray, rootFolder: String): Result<String> {
+    override suspend fun saveFile(content: ByteArray, saveFolder: String): Result<String> {
         return try {
-
             val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
             val outputFileName = "listing_$timestamp.docx"
-            val filePath = "$rootFolder/$outputFileName".toPath()
-            fileSystem.write(filePath){
-                write(content)
-            }
-            println("File saved: $filePath")
-            Result.success(filePath.toString())
+
+            fileSystem.write(saveFolder,outputFileName, content)
+
+            println("File saved: $outputFileName")
+            Result.success(outputFileName)
         }catch (e: Exception){
             println("saveFile error $e")
+            e.printStackTrace()
             Result.failure(e)
         }
 
@@ -108,15 +108,15 @@ class FileRepositoryImpl(private val fileSystem: FileSystem): FileRepository{
         return filename.substringAfterLast('.', "")
     }
 
-    private fun createFileModel(filePath: Path, rootPath: Path): FileWithCodeModel {
-        val content = fileSystem.read(filePath) { readUtf8() }
-        val relativePath = filePath.relativeTo(rootPath).toString()
+    private fun createFileModel(filePath: String, rootPath: String): FileWithCodeModel {
+        val content = fileSystem.read(filePath)
+        val relativePath = filePath.toPath().relativeTo(rootPath.toPath()).toString()
 
         return FileWithCodeModel(
             relativePath = relativePath,
-            name = filePath.name,
+            name = filePath.toPath().name,
             content = content,
-            extension = getFileExtension(filePath.name)
+            extension = getFileExtension(filePath.toPath().name)
         )
     }
 
