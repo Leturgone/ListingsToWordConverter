@@ -26,6 +26,7 @@ kotlin {
             implementation(libs.androidx.activity.ktx)
             implementation(libs.insert.koin.compose)
             implementation(libs.insert.koin.composeVM)
+            implementation(libs.androidx.documentfile)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
