@@ -1,7 +1,7 @@
 package compose.project.listingstowordconverter.data.repository
 
 import compose.project.listingsconverter.domain.model.FileWithCodeModel
-import compose.project.listingsconverter.domain.repository.WordRepository
+import compose.project.listingstowordconverter.domain.repository.WordRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment
