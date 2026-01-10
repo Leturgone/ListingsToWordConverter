@@ -2,17 +2,22 @@ package compose.project.listingstowordconverter.presentation.ui.components.folde
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.awt.FileDialog
-import java.awt.Frame
+import javax.swing.JFileChooser
+import javax.swing.filechooser.FileSystemView
 
 actual class FolderSelector actual constructor() {
     actual suspend fun selectFolder(): String? = withContext(Dispatchers.Main) {
-        val dialog = FileDialog(null as Frame?, "Выберите папку", FileDialog.LOAD)
-        dialog.isMultipleMode = false
-        dialog.isVisible = true
+        val chooser = JFileChooser().apply {
+            fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
+            dialogTitle = "Выберите папку"
+            currentDirectory = FileSystemView.getFileSystemView().defaultDirectory
+        }
 
-        dialog.directory?.let { directory ->
-            dialog.file?.let { file -> "$directory$file" } ?: directory
+        val result = chooser.showOpenDialog(null)
+
+        when(result){
+            JFileChooser.APPROVE_OPTION -> chooser.selectedFile.absolutePath
+            else -> null
         }
     }
 }
