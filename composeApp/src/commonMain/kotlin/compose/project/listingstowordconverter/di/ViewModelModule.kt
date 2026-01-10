@@ -1,7 +1,7 @@
 package compose.project.listingstowordconverter.di
 
-import compose.project.listingsconverter.domain.repository.FileRepository
-import compose.project.listingsconverter.domain.repository.WordRepository
+import compose.project.listingstowordconverter.domain.repository.FileRepository
+import compose.project.listingstowordconverter.domain.repository.WordRepository
 import compose.project.listingstowordconverter.data.repository.FileRepositoryImpl
 import compose.project.listingstowordconverter.data.repository.WordRepositoryImpl
 import compose.project.listingstowordconverter.domain.usecase.ConvertCodeToWordFileUseCase
