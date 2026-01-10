@@ -1,7 +1,7 @@
 package compose.project.listingstowordconverter.domain.usecase
 
-import compose.project.listingsconverter.domain.repository.FileRepository
-import compose.project.listingsconverter.domain.repository.WordRepository
+import compose.project.listingstowordconverter.domain.repository.FileRepository
+import compose.project.listingstowordconverter.domain.repository.WordRepository
 
 class ConvertCodeToWordFileUseCase(
     private val fileRepository: FileRepository,
