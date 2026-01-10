@@ -1,37 +1,37 @@
 package compose.project.listingstowordconverter.presentation.ui.components.folderselector
 
-import android.content.Intent
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.launch
+import android.content.Context
+import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
+import java.lang.ref.WeakReference
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-actual class FolderSelector {
+actual class FolderSelector actual constructor() {
+    private var _context: WeakReference<Context?> = WeakReference(null)
+    private var launcher: ActivityResultLauncher<Unit>? = null
+    private var callback: ((String?) -> Unit)? = null
 
-    @Composable
-    actual fun selectFolder(): suspend () -> String?  {
-        val scope = rememberCoroutineScope()
-
-        val resultChannel = Channel<String>(Channel.RENDEZVOUS) //waiting
-
-        val folderPickerLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.StartActivityForResult()
+    fun init(context: Context) {
+        _context = WeakReference(context)
+        val activity = context as ComponentActivity
+        launcher = activity.registerForActivityResult(
+            SelectFolderContract()
         ) { result ->
-            scope.launch {
-                result.data?.data?.let { uri ->
-                    resultChannel.send(uri.toString())
-                }
-            }
+            callback?.invoke(result)
+            callback = null
         }
+    }
 
-        return suspend {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    actual suspend fun selectFolder(): String? {
+        return try {
+            suspendCoroutine { cont ->
+                callback = { result -> cont.resume(result) }
+                launcher?.launch(Unit)
             }
-            folderPickerLauncher.launch(intent)
-            resultChannel.receive()
+        }catch (e: Exception){
+            e.printStackTrace()
+            null
         }
     }
 }
