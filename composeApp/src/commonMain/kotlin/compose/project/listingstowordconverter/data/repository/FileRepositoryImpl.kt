@@ -37,10 +37,11 @@ class FileRepositoryImpl(
                 val items = fileSystem.list(currentDir)
                 items.forEach { path ->
                     val metadata = fileSystem.metadata(path)
+                    val filename = fileSystem.getFileName(path)
                     when{
                         // Добавляем директорию в конец очереди
                         metadata.isDirectory -> queue.addLast(path)
-                        metadata.isRegularFile  && isCodeFile(path.toPath().name)-> {
+                        metadata.isRegularFile  && isCodeFile(filename)-> {
                             filesFound++
                             val file = createFileModel(path,rootPath)
                             files.add(file)
@@ -75,7 +76,7 @@ class FileRepositoryImpl(
 
 
             val folder = FolderModel(
-                name = rootPath.toPath().name,
+                name = fileSystem.getFileName(rootPath),
                 relativePath = rootPath
             )
             Result.success(folder)
@@ -111,12 +112,12 @@ class FileRepositoryImpl(
     private fun createFileModel(filePath: String, rootPath: String): FileWithCodeModel {
         val content = fileSystem.read(filePath)
         val relativePath = filePath.toPath().relativeTo(rootPath.toPath()).toString()
-
+        val filename = fileSystem.getFileName(filePath)
         return FileWithCodeModel(
             relativePath = relativePath,
-            name = filePath.toPath().name,
+            name = filename,
             content = content,
-            extension = getFileExtension(filePath.toPath().name)
+            extension = getFileExtension(filename)
         )
     }
 
