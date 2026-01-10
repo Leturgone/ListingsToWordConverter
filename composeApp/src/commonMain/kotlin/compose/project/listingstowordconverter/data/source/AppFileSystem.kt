@@ -1,7 +1,6 @@
 package compose.project.listingstowordconverter.data.source
 
 import compose.project.listingsconverter.data.source.FileMetadata
-import okio.Path
 
 expect class AppFileSystem() {
 
@@ -14,5 +13,7 @@ expect class AppFileSystem() {
     fun read(path: String): String
 
     fun write(saveFolderPath: String, fileName: String, content: ByteArray)
+
+    fun getFileName(path: String): String
 
 }
