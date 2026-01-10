@@ -1,7 +1,7 @@
 [versions]
-agp = "8.11.2"
+agp = "8.13.2"
 android-compileSdk = "36"
-android-minSdk = "24"
+android-minSdk = "26"
 android-targetSdk = "36"
 androidx-activity = "1.12.2"
 androidx-appcompat = "1.7.1"
@@ -14,11 +14,16 @@ composeMultiplatform = "1.9.3"
 junit = "4.13.2"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
+materialIconsExtended = "1.7.8"
 okio = "3.16.4"
-koin = "4.1.1"
+koin = "4.2.0-beta2"
 apache-poi = "5.5.1"
+composeIcons = "1.1.1"
+activityKtx = "1.12.2"
+document-file = "1.1.0"
 
 [libraries]
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -27,15 +32,20 @@ androidx-testExt-junit = { module = "androidx.test.ext:junit", version.ref = "an
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 okio = {module = "com.squareup.okio:okio", version.ref = "okio"}
 kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core",version.ref = "kotlinx-coroutines"}
-insert-koin-core = {module ="io.insert-koin:koin-core",version.ref = "koin" }
-insert-koin-android = {module = "io.insert-koin:koin-android",version.ref = "koin"}
+insert-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+insert-koin-compose = {module = "io.insert-koin:koin-compose",version.ref = "koin"}
+insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+insert-koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 okio-jvm = {module = "com.squareup.okio:okio-jvm",version.ref = "okio"}
 apache-poi-poi-ooxml = {module ="org.apache.poi:poi-ooxml",version.ref = "apache-poi" }
+composeIcons-tablerIcons = { module = "br.com.devsrsouza.compose.icons:tabler-icons", version.ref = "composeIcons" }
+androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+androidx-documentfile = {module = "androidx.documentfile:documentfile", version.ref = "document-file"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -3,16 +3,16 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.androidApplication)
 }
 
 kotlin {
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_19)
         }
     }
     
@@ -23,6 +23,10 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.insert.koin.android)
+            implementation(libs.androidx.activity.ktx)
+            implementation(libs.insert.koin.compose)
+            implementation(libs.insert.koin.composeVM)
+            implementation(libs.androidx.documentfile)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -31,12 +35,13 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.okio)
             implementation(libs.insert.koin.core)
+            implementation(libs.insert.koin.composeVM)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.apache.poi.poi.ooxml )
+            implementation(libs.composeIcons.tablerIcons)
+            api(libs.androidx.lifecycle.viewmodelCompose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -45,16 +50,17 @@ kotlin {
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation(libs.insert.koin.composeVM)
         }
     }
 }
 
 android {
-    namespace = "com.example.listingstowordconverter"
+    namespace = "compose.project.listingstowordconverter"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.example.listingstowordconverter"
+        applicationId = "compose.project.listingstowordconverter"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -82,11 +88,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "com.example.listingstowordconverter.MainKt"
+        mainClass = "compose.project.listingstowordconverter.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.example.listingstowordconverter"
+            packageName = "compose.project.listingstowordconverter"
             packageVersion = "1.0.0"
         }
     }

@@ -1,7 +1,7 @@
-package compose.project.listingsconverter.domain.usecase
+package compose.project.listingstowordconverter.domain.usecase
 
-import compose.project.listingsconverter.domain.repository.FileRepository
-import compose.project.listingsconverter.domain.repository.WordRepository
+import compose.project.listingstowordconverter.domain.repository.FileRepository
+import compose.project.listingstowordconverter.domain.repository.WordRepository
 
 class ConvertCodeToWordFileUseCase(
     private val fileRepository: FileRepository,
@@ -14,7 +14,7 @@ class ConvertCodeToWordFileUseCase(
                     onSuccess = { files ->
                         wordRepository.convertFilesToWord(files).fold(
                             onSuccess = { byteArrayWordFile ->
-                                fileRepository.saveFile(byteArrayWordFile).fold(
+                                fileRepository.saveFile(byteArrayWordFile, rootPath).fold(
                                     onSuccess = {pathToWordFile -> Result.success(pathToWordFile)},
                                     onFailure = {error -> Result.failure(error)}
                                 )},

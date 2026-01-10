@@ -1,7 +1,7 @@
-package compose.project.listingsconverter.domain.repository
+package compose.project.listingstowordconverter.domain.repository
 
-import compose.project.listingsconverter.domain.model.FileWithCodeModel
-import compose.project.listingsconverter.domain.model.FolderModel
+import compose.project.listingstowordconverter.domain.model.FileWithCodeModel
+import compose.project.listingstowordconverter.domain.model.FolderModel
 
 interface FileRepository {
 
@@ -9,6 +9,7 @@ interface FileRepository {
 
     suspend fun getRootFolderByPath(rootPath: String): Result<FolderModel>
 
-    suspend fun saveFile(content: ByteArray): Result<String>
+    suspend fun saveFile(content: ByteArray, saveFolder: String): Result<String>
+
 
 }
