@@ -1,7 +1,7 @@
 package compose.project.listingstowordconverter.data.repository
 
-import compose.project.listingsconverter.domain.model.FileWithCodeModel
-import compose.project.listingsconverter.domain.model.FolderModel
+import compose.project.listingstowordconverter.domain.model.FileWithCodeModel
+import compose.project.listingstowordconverter.domain.model.FolderModel
 import compose.project.listingstowordconverter.data.source.AppFileSystem
 import compose.project.listingstowordconverter.domain.repository.FileRepository
 import okio.Path.Companion.toPath

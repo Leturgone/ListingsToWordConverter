@@ -1,6 +1,6 @@
 package compose.project.listingstowordconverter.data.repository
 
-import compose.project.listingsconverter.domain.model.FileWithCodeModel
+import compose.project.listingstowordconverter.domain.model.FileWithCodeModel
 import compose.project.listingstowordconverter.domain.repository.WordRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

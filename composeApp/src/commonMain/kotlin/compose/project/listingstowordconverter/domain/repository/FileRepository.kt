@@ -1,7 +1,7 @@
 package compose.project.listingstowordconverter.domain.repository
 
-import compose.project.listingsconverter.domain.model.FileWithCodeModel
-import compose.project.listingsconverter.domain.model.FolderModel
+import compose.project.listingstowordconverter.domain.model.FileWithCodeModel
+import compose.project.listingstowordconverter.domain.model.FolderModel
 
 interface FileRepository {
 
