@@ -87,5 +87,12 @@ actual class AppFileSystem actual constructor() {
         }
     }
 
+    actual fun getFileName(path: String): String {
+        val uri = parseUri(path)
+        val documentFile = DocumentFile.fromSingleUri(_activity,uri)
+            ?: throw IllegalArgumentException("Invalid directory or file Uri: $uri")
+        return documentFile.name?:"untitled"
+    }
+
 
 }
