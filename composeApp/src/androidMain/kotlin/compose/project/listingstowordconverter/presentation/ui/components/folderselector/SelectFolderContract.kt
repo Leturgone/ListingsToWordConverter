@@ -12,6 +12,7 @@ class SelectFolderContract: ActivityResultContract<Unit, String?>() {
     ): Intent {
         return Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         }
     }
@@ -21,7 +22,8 @@ class SelectFolderContract: ActivityResultContract<Unit, String?>() {
         intent: Intent?
     ): String? {
         if (resultCode != Activity.RESULT_OK || intent == null) return null
-        return intent.data?.path
+        // return URI
+        return intent.data?.toString()
     }
 
 }
