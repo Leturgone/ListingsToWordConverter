@@ -1,4 +1,6 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,16 +9,37 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.shadow)
 }
 
 kotlin {
+    val javaMainClass = "compose.project.listingstowordconverter.MainKt"
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_19)
         }
     }
-    
-    jvm()
+
+    jvm {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        mainRun {
+            mainClass = javaMainClass
+        }
+
+        tasks.register<ShadowJar>("jvmShadowJar") { // create fat jar task
+            val mainCompilation = compilations["main"]
+            val jvmRuntimeConfiguration = mainCompilation
+                .runtimeDependencyConfigurationName
+                .let { project.configurations[it] }
+
+            from(mainCompilation.output.allOutputs) // allOutputs == classes + resources
+            configurations = listOf(jvmRuntimeConfiguration)
+            archiveClassifier.set("fatjar")
+            manifest.attributes("Main-Class" to javaMainClass)
+        }
+
+    }
+
     
     sourceSets {
         androidMain.dependencies {
@@ -53,6 +76,7 @@ kotlin {
             implementation(libs.insert.koin.composeVM)
         }
     }
+
 }
 
 android {
