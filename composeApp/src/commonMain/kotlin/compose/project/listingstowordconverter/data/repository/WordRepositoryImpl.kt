@@ -9,7 +9,12 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.apache.poi.xwpf.usermodel.XWPFTable
 import org.apache.poi.xwpf.usermodel.XWPFTableCell
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPPr
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSpacing
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STLineSpacingRule
 import java.io.ByteArrayOutputStream
+import java.math.BigInteger
+
 
 class WordRepositoryImpl(): WordRepository {
 
@@ -38,21 +43,33 @@ class WordRepositoryImpl(): WordRepository {
         //Create table title with number
         val tableHeader = document.createParagraph()
         tableHeader.alignment = ParagraphAlignment.LEFT
-        tableHeader.spacingBefore = 100
+        tableHeader.spacingBefore = 6 * 20 // 6 pt
+        tableHeader.spacingAfter = 0
+
+        val ppr: CTPPr = tableHeader.ctp.pPr ?: tableHeader.ctp.addNewPPr()
+        val spacing: CTSpacing = if (ppr.isSetSpacing) ppr.spacing else ppr.addNewSpacing()
+        spacing.line = BigInteger.valueOf(240) // 1 internal between
+        spacing.lineRule = STLineSpacingRule.AUTO
+        ppr.addNewWidowControl().`val` = true // no hanging lines
+
+
 
         val titleRun = tableHeader.createRun()
         titleRun.setText("Листинг $number — ${file.name}")
         titleRun.isBold = false
-        titleRun.fontSize = 12
+        titleRun.isItalic = true
+        titleRun.fontSize = 14
         titleRun.fontFamily = "Times New Roman"
+        titleRun.color = "000000"
+
 
         //Create table
         val table = document.createTable(1,1)
 
         val cell = table.getRow(0).getCell(0)
+        table.setWidth("100%")
 
         cell.setFormattedText(file.content)
-
 
         val borderSize = 4
         val borderColor = "000000"
@@ -62,10 +79,7 @@ class WordRepositoryImpl(): WordRepository {
         table.setLeftBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
         table.setRightBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
 
-        val spacingParagraph = document.createParagraph()
-        val spacingRun = spacingParagraph.createRun()
-        spacingRun.setText("")
-        spacingRun.addBreak()
+        document.createParagraph()
     }
 
 
@@ -74,6 +88,12 @@ class WordRepositoryImpl(): WordRepository {
 
 
         val paragraph = paragraphs.firstOrNull()?: addParagraph()
+
+        val ppr: CTPPr = paragraph.ctp.pPr ?: paragraph.ctp.addNewPPr()
+        val spacing: CTSpacing = if (ppr.isSetSpacing) ppr.spacing else ppr.addNewSpacing()
+        spacing.line = BigInteger.valueOf(240) // 1 internal between
+        spacing.lineRule = STLineSpacingRule.AUTO
+        ppr.addNewWidowControl().`val` = true // no hanging lines
 
         // splits text with \n
         val lines = text.split('\n')
@@ -89,6 +109,17 @@ class WordRepositoryImpl(): WordRepository {
     private fun XWPFParagraph.addFormatLine(line:String){
         if (line.isEmpty()) return
 
+        spacingBetween = 1.0
+        alignment = ParagraphAlignment.LEFT
+
+        indentationLeft = 0
+        indentationRight = 0
+        firstLineIndent = 0
+
+        spacingBefore = 0
+        spacingAfter = 0
+
+
         //splits text to parts with text - space flag
         val parts = splitToPreservedParts(line)
 
@@ -97,6 +128,7 @@ class WordRepositoryImpl(): WordRepository {
             run.isBold = false
             run.fontSize = 10
             run.fontFamily = "Times New Roman"
+            run.color = "000000"
 
             if (isWhitespace){
                 // create new XML element in WOrd document
