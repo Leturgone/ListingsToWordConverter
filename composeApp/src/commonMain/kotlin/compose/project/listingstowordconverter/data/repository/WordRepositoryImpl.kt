@@ -85,5 +85,35 @@ class WordRepositoryImpl(): WordRepository {
             paragraph.addFormatLine(line)
         }
     }
+    // Add text with spaces to paragraph
+    private fun XWPFParagraph.addFormatLine(line:String){
+        if (line.isEmpty()) return
+
+        //splits text to parts with text - space flag
+        val parts = splitToPreservedParts(line)
+
+        parts.forEach { (chunk, isWhitespace) ->
+            val run = createRun()
+            run.isBold = false
+            run.fontSize = 10
+            run.fontFamily = "Times New Roman"
+
+            if (isWhitespace){
+                // create new XML element in WOrd document
+                val ctTxt = run.ctr.addNewT()
+                ctTxt.set(
+                    org.apache.xmlbeans.XmlObject.Factory.parse(
+                        "<w:t xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xml:space=\"preserve\">$chunk</w:t>"
+                    )
+                )
+            }else {
+                // if normal text
+                run.setText(chunk)
+
+            }
+        }
+
+    }
+
 
 }
