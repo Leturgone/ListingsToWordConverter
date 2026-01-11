@@ -6,7 +6,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment
 import org.apache.poi.xwpf.usermodel.XWPFDocument
+import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.apache.poi.xwpf.usermodel.XWPFTable
+import org.apache.poi.xwpf.usermodel.XWPFTableCell
 import java.io.ByteArrayOutputStream
 
 class WordRepositoryImpl(): WordRepository {
@@ -39,7 +41,7 @@ class WordRepositoryImpl(): WordRepository {
         tableHeader.spacingBefore = 100
 
         val titleRun = tableHeader.createRun()
-        titleRun.setText("Таблица $number — ${file.name}")
+        titleRun.setText("Листинг $number — ${file.name}")
         titleRun.isBold = false
         titleRun.fontSize = 12
         titleRun.fontFamily = "Times New Roman"
@@ -48,12 +50,9 @@ class WordRepositoryImpl(): WordRepository {
         val table = document.createTable(1,1)
 
         val cell = table.getRow(0).getCell(0)
-        val paragraph = cell.addParagraph()
-        val run = paragraph.createRun()
-        run.setText(file.content)
-        run.isBold = false
-        run.fontSize = 10
-        run.fontFamily = "Times New Roman"
+
+        cell.setFormattedText(file.content)
+
 
         val borderSize = 4
         val borderColor = "000000"
@@ -68,4 +67,23 @@ class WordRepositoryImpl(): WordRepository {
         spacingRun.setText("")
         spacingRun.addBreak()
     }
+
+
+
+    private fun XWPFTableCell.setFormattedText(text: String){
+
+
+        val paragraph = paragraphs.firstOrNull()?: addParagraph()
+
+        // splits text with \n
+        val lines = text.split('\n')
+        lines.forEachIndexed { lineIndex,line ->
+            if (lineIndex > 0){
+                // crate Enter
+                paragraph.createRun().addBreak()
+            }
+            paragraph.addFormatLine(line)
+        }
+    }
+
 }
