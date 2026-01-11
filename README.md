@@ -1,40 +1,57 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+# ListingsToWordConverter
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+[<img src="composeApp/src/jvmMain/resources/drawble/icon_ltw.png" align="left"
+width="200" hspace="10" vspace="10">](composeApp/src/jvmMain/resources/drawble/icon_ltw.png)
 
-### Build and Run Android Application
+[![rus](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/Leturgone/ComicTracker/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Leturgone/ComicTracker/blob/main/README-en.md)
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
+ListingsToWordConverter это мобильное приложение для Android и  написанное на языке Kotlin, позволяющее упростить ведение личного учета прочитанных комиксов, а также поиск новых серий для прочтения.<br>
+<br><br><br><br><br><br>
+
+## Функционал приложения
+
+<img src="/demo.gif" align="right" width="250" hspace="10" vspace="10"/>
+
+- Искать серии по названию
+-  Искать персонажей по имени
+-  Добавлять серии в список Прочитано
+-  Добавлять серии в список Буду читать
+-  Добавлять серии в список Любимые
+-  Добавлять комиксы в список прочитанных
+-  Отслеживать прогресс прочтения серии по выпускам
+-  Отлеживать выход новых выпусков читаемых серий
+-  Просматривать информацию о сериях
+-  Просматривать информацию о комиксах
+-  Просматривать информацию о персонажах, включающую описание персонажа и список серий, где он появляется
+<br><br><br><br><br><br><br><br><br><br>
+
+# Технологический стек
+- **Android** – ОС, на которой разработано приложение
+- **Android SDK 35** – Средство разработки приложения
+- **Kotlin** – Основной язык, на котором разработано прилжение
+- **Jetpack Compose** - набор инструментов для построения UI
+- **Clean Architecture**
+- **MVI** - Архитектурный паттерн
+- **Retrofit** - для обращения к [MarvelApi](http://developer.marvel.com/)
+- **SQLite** – База данных
+- **Room** – для работы с базо данных
+- **Dagger Hilt** - для внедрения зависимостей (DI)  
+- **Coroutines + Flow**
+- **JUnit + Robolectric + Mockito + Compose UI Testing Framework** - для тестирования
+
+# Установка
+1. Скачать apk из последнего релиза;
+2. Установить на устройство.
+
+
+
+
+- on Windows/macOS/Linux/
   ```shell
-  ./gradlew :composeApp:assembleDebug
+  java -jar ListingsToWordConvertor.jar
   ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
-
-### Build and Run Desktop (JVM) Application
-
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
-
----
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+- on Android
+1. Скачать apk из последнего релиза;
+2. Установить на устройство.
+  
