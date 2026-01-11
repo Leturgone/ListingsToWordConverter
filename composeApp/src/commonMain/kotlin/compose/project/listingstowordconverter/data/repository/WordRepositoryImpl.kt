@@ -114,6 +114,40 @@ class WordRepositoryImpl(): WordRepository {
         }
 
     }
+    private fun splitToPreservedParts(text: String): List<Pair<String, Boolean>>{
+        val result = mutableListOf<Pair<String, Boolean>>()
+        var currentChunk = "" //text fragment
+        var isCurrentWhitespace = false //flag which means that current chunk is spaces
 
+        text.forEach { ch ->
+            //if space
+            val isCharWhitespace = ch.isWhitespace()
+
+            when {
+                currentChunk.isEmpty() -> {
+                    currentChunk+=ch
+                    isCurrentWhitespace = isCharWhitespace
+                }
+                isCharWhitespace == isCurrentWhitespace -> {
+                    // continue current block if it still spaces
+                    currentChunk += ch
+                }
+                else -> {
+                    // start new block and finish current
+                    result.add(currentChunk to isCurrentWhitespace)
+
+                    //continue with new chunk
+                    currentChunk = ch.toString()
+                    isCurrentWhitespace = isCharWhitespace
+                }
+            }
+
+        }
+        if (currentChunk.isNotEmpty()) {
+            result.add(currentChunk to isCurrentWhitespace)
+        }
+
+        return  result
+    }
 
 }
