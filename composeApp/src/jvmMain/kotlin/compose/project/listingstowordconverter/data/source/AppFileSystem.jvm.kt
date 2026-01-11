@@ -1,6 +1,5 @@
 package compose.project.listingstowordconverter.data.source
 
-import compose.project.listingsconverter.data.source.FileMetadata
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.buffer

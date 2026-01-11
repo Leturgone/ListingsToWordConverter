@@ -1,4 +1,4 @@
-package compose.project.listingsconverter.data.source
+package compose.project.listingstowordconverter.data.source
 
 class FileMetadata(
     val isDirectory: Boolean,
