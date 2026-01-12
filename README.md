@@ -3,11 +3,27 @@
 [<img src="composeApp/src/jvmMain/resources/drawble/icon_ltw.png" align="left"
 width="200" hspace="10" vspace="10">](composeApp/src/jvmMain/resources/drawble/icon_ltw.png)
 
-[![rus](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/Leturgone/ComicTracker/blob/main/README.md)
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Leturgone/ComicTracker/blob/main/README-en.md)
+[![rus](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/Leturgone/ListingsToWordConverter/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Leturgone/ListingsToWordConverter/blob/main/README-en.md)
 
 ListingsToWordConverter это кроссплатформенное приложение для Android и Desktop (JVM), написанное на языке Kotlin, позволяющее конвертировать файлы с кодом из папки в единый Word документ (.docx) в виде пронумерованных таблиц .<br>
 <br><br><br><br><br><br>
+
+## Поддерживаемые типы
+
+| Язык | Расширение |
+|----------|-----------|
+| Kotlin | `.kt` |
+| Java | `.java` |
+| JavaScript/TypeScript | `.js`, `.ts` |
+| Python | `.py` |
+| C/C++ | `.c`, `.cpp`, `.h` |
+| Swift | `.swift` |
+| Markdown | `.md` |
+| XML | `.xml` |
+| YML | `.yml` |
+| YML | `.yml` |
+|Dockerfile| |
 
 ## Функционал приложения
 
@@ -25,12 +41,10 @@ ListingsToWordConverter это кроссплатформенное прилож
 - **Compose Multiplatform** - набор инструментов для построения UI
 - **Clean Architecture**
 - **MVI** - Архитектурный паттерн
-- **Retrofit** - для обращения к [MarvelApi](http://developer.marvel.com/)
-- **SQLite** – База данных
-- **Room** – для работы с базо данных
-- **Dagger Hilt** - для внедрения зависимостей (DI)  
+- **Apache POI OOXML** - для генерации Word документа с форматированием
+- **Koin** - для внедрения зависимостей (DI)  
 - **Coroutines + Flow**
-- **JUnit + Robolectric + Mockito + Compose UI Testing Framework** - для тестирования
+- **Okio** - для IO операций
 
 ## Установка 
 
@@ -47,30 +61,7 @@ ListingsToWordConverter это кроссплатформенное прилож
   ```
 
 
-## 🛠️ Technology Stack
 
-- **Kotlin Multiplatform** + **Jetpack Compose**
-- **Apache POI OOXML** - Word document generation
-- **Okio** - Cross-platform file I/O
-- **Koin** - Dependency injection
-- **Kotlinx Coroutines** - Async operations
-
-
-## Поддерживаемые типы
-
-| Язык | Расширение |
-|----------|-----------|
-| Kotlin | `.kt` |
-| Java | `.java` |
-| JavaScript/TypeScript | `.js`, `.ts` |
-| Python | `.py` |
-| C/C++ | `.c`, `.cpp`, `.h` |
-| Swift | `.swift` |
-| Markdown | `.md` |
-| XML | `.xml` |
-| YML | `.yml` |
-| YML | `.yml` |
-|Dockerfile| |
 
 
 
