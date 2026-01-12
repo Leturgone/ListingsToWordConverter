@@ -9,21 +9,6 @@ width="200" hspace="10" vspace="10">](composeApp/src/jvmMain/resources/drawble/i
 ListingsToWordConverter is a cross-platform application for Android and Desktop (JVM), written in Kotlin, that allows converting code files from a folder into a single Word document (.docx) in the form of numbered tables.<br>
 <br><br><br><br><br><br>
 
-## Supported Types
-
-| Language | Extension |
-|----------|-----------|
-| Kotlin | `.kt` |
-| Java | `.java` |
-| JavaScript/TypeScript | `.js`, `.ts` |
-| Python | `.py` |
-| C/C++ | `.c`, `.cpp`, `.h` |
-| Swift | `.swift` |
-| Markdown | `.md` |
-| XML | `.xml` |
-| YML | `.yml` |
-| YML | `.yml` |
-|Dockerfile| |
 
 ## Application Functionality
 
@@ -60,9 +45,34 @@ ListingsToWordConverter is a cross-platform application for Android and Desktop 
   java -jar ListingsToWordConvertor.jar
   ```
 
+## Usage
+1. Click on the card with the plus (+) icon.  
+2. In the opened file explorer, select the folder containing the code for conversion.  
+3. After a success message appears, a Word document with tables will be generated in the same folder as the code.<br>
+
+> [!TIP]
+> You can simply drag and drop the folder from the file explorer onto the plus (+) card, and the conversion will be also performed automatically
+
+<br>
+
+<img width="775" height="583" alt="изображение" src="https://github.com/user-attachments/assets/3e09d28f-3b9d-43c8-a895-d6d507400c6a" />
 
 
 
+## Supported Types
+
+| Language | Extension |
+|----------|-----------|
+| Kotlin | `.kt` |
+| Java | `.java` |
+| JavaScript/TypeScript | `.js`, `.ts` |
+| Python | `.py` |
+| C/C++ | `.c`, `.cpp`, `.h` |
+| Swift | `.swift` |
+| Markdown | `.md` |
+| XML | `.xml` |
+| YML | `.yml` |
+| YML | `.yml` |
+|Dockerfile| |
 
 
----
