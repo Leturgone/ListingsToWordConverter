@@ -1,40 +1,76 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+# ListingsToWordConverter
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+[<img src="composeApp/src/jvmMain/resources/drawble/icon_ltw.png" align="left"
+width="200" hspace="10" vspace="10">](composeApp/src/jvmMain/resources/drawble/icon_ltw.png)
 
-### Build and Run Android Application
+[![rus](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/Leturgone/ListingsToWordConverter/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Leturgone/ListingsToWordConverter/blob/main/README-en.md)
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
+ListingsToWordConverter это кроссплатформенное приложение для Android и Desktop (JVM), написанное на языке Kotlin, позволяющее конвертировать файлы с кодом из папки в единый Word документ (.docx) в виде пронумерованных таблиц .<br>
+<br><br><br><br><br><br>
+
+## Функционал приложения
+
+- Позволяет выбрать папку с кодом путем открытия проводника, или путем перетаскивания папки (Только Desktop (JVM))
+- При помощи BFS сканирует папку и формирует единый единый Word документ (.docx) `folderWithCode/listing_YYYYMMDD_HHMMSS.docx`
+- Word документ содержит таблицы с заголовками "Листинг N — filename.ext", оформлены как Times New Roman 14 курсив, нулевые отступы и единичный межстрочный интервал
+- Содержимое таблиц оформлено как Times New Roman 10, нулевые отступы и единичный межстрочный интервал
+
+<br>
+<img width="1351" height="478" alt="изображение" src="https://github.com/user-attachments/assets/13871568-2f90-4b40-b8bb-93798b126661" />
+<br>
+
+## Технологический стек
+- **Kotlin** – Основной язык, на котором разработано прилжение
+- **Compose Multiplatform** - набор инструментов для построения UI
+- **Clean Architecture**
+- **MVI** - Архитектурный паттерн
+- **Apache POI OOXML** - для генерации Word документа с форматированием
+- **Koin** - для внедрения зависимостей (DI)  
+- **Coroutines + Flow**
+- **Okio** - для IO операций
+
+## Установка 
+
+### Установка на Android
+1. Скачать apk из последнего релиза;
+2. Установить на устройство.
+
+### Установка на Desktop (JVM)
+
+1. Скачать jar из последнего релиза
+2. Запустить в cmd
   ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
+  java -jar ListingsToWordConvertor.jar
   ```
 
-### Build and Run Desktop (JVM) Application
+## Использование
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+1. Нажмите на карточку с плюсом (+).
+2. В открывшемся проводнике выберите папку с кодом для конвертации.
+3. После появления сообщения о успешном завершении в той же папке с кодом появится Word-документ с таблицами.<br>
 
----
+> [!TIP]
+> Также можно сделать проще - просто перетащите папку из проводника на карточку с плюсом (+), и конвертация также выполнится автоматически.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+<br>
+
+<img width="775" height="583" alt="изображение" src="https://github.com/user-attachments/assets/3e09d28f-3b9d-43c8-a895-d6d507400c6a" />
+
+## Поддерживаемые типы
+
+| Язык | Расширение |
+|----------|-----------|
+| Kotlin | `.kt` |
+| Java | `.java` |
+| JavaScript/TypeScript | `.js`, `.ts` |
+| Python | `.py` |
+| C/C++ | `.c`, `.cpp`, `.h` |
+| Swift | `.swift` |
+| Markdown | `.md` |
+| XML | `.xml` |
+| YML | `.yml` |
+| YML | `.yml` |
+|Dockerfile| |
+
+  
