@@ -70,7 +70,6 @@ ListingsToWordConverter это кроссплатформенное прилож
 | Markdown | `.md` |
 | XML | `.xml` |
 | YML | `.yml` |
-| YML | `.yml` |
 |Dockerfile| |
 
   
