@@ -72,7 +72,6 @@ ListingsToWordConverter is a cross-platform application for Android and Desktop 
 | Markdown | `.md` |
 | XML | `.xml` |
 | YML | `.yml` |
-| YML | `.yml` |
 |Dockerfile| |
 
 
