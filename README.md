@@ -72,4 +72,11 @@ ListingsToWordConverter это кроссплатформенное прилож
 | YML | `.yml` |
 |Dockerfile| |
 
+## Игноруруемые директории
+
+- .git
+- build
+- .idea"
+- .gradle"
+- gradle
   
