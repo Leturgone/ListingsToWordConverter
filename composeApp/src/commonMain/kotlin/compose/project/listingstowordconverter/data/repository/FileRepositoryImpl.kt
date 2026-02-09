@@ -31,6 +31,12 @@ class FileRepositoryImpl(
 
         while (queue.isNotEmpty()){
             val currentDir = queue.removeFirst()
+
+            if (isIgnoredDirectory(currentDir)) {
+                println("Skipping ignored directory: $currentDir")
+                continue
+            }
+
             directoriesProcessed++
 
             try {
@@ -124,6 +130,11 @@ class FileRepositoryImpl(
     private fun isCodeFile(filename: String): Boolean {
         val extension = getFileExtension(filename).lowercase()
         return extension in setOf("kt", "java", "js", "ts", "py", "cpp", "c", "h", "swift", "md", "xml","yml","")
+    }
+
+    private fun isIgnoredDirectory(directory: String): Boolean{
+        val directoryName = fileSystem.getFileName(directory)
+        return directoryName in setOf(".git","build", ".idea",".gradle","gradle")
     }
 }
 
