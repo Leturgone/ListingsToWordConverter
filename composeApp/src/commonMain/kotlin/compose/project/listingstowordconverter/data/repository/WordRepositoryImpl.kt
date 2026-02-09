@@ -25,6 +25,7 @@ class WordRepositoryImpl(): WordRepository {
                 val document = XWPFDocument()
                 files.forEachIndexed { index, file ->
                     createTable(document,file,index+1)
+                    println("${file.relativePath} processed")
                 }
                 ByteArrayOutputStream().use { baos ->
                     document.write(baos)
@@ -39,47 +40,52 @@ class WordRepositoryImpl(): WordRepository {
 
 
     private fun createTable(document: XWPFDocument, file: FileWithCodeModel,number: Int){
+        try {
+            //Create table title with number
+            val tableHeader = document.createParagraph()
+            tableHeader.alignment = ParagraphAlignment.LEFT
+            tableHeader.spacingBefore = 6 * 20 // 6 pt
+            tableHeader.spacingAfter = 0
 
-        //Create table title with number
-        val tableHeader = document.createParagraph()
-        tableHeader.alignment = ParagraphAlignment.LEFT
-        tableHeader.spacingBefore = 6 * 20 // 6 pt
-        tableHeader.spacingAfter = 0
-
-        val ppr: CTPPr = tableHeader.ctp.pPr ?: tableHeader.ctp.addNewPPr()
-        val spacing: CTSpacing = if (ppr.isSetSpacing) ppr.spacing else ppr.addNewSpacing()
-        spacing.line = BigInteger.valueOf(240) // 1 internal between
-        spacing.lineRule = STLineSpacingRule.AUTO
-        ppr.addNewWidowControl().`val` = true // no hanging lines
-
-
-
-        val titleRun = tableHeader.createRun()
-        titleRun.setText("Листинг $number — ${file.name}")
-        titleRun.isBold = false
-        titleRun.isItalic = true
-        titleRun.fontSize = 14
-        titleRun.fontFamily = "Times New Roman"
-        titleRun.color = "000000"
+            val ppr: CTPPr = tableHeader.ctp.pPr ?: tableHeader.ctp.addNewPPr()
+            val spacing: CTSpacing = if (ppr.isSetSpacing) ppr.spacing else ppr.addNewSpacing()
+            spacing.line = BigInteger.valueOf(240) // 1 internal between
+            spacing.lineRule = STLineSpacingRule.AUTO
+            ppr.addNewWidowControl().`val` = true // no hanging lines
 
 
-        //Create table
-        val table = document.createTable(1,1)
 
-        val cell = table.getRow(0).getCell(0)
-        table.setWidth("100%")
+            val titleRun = tableHeader.createRun()
+            titleRun.setText("Листинг $number — ${file.name}")
+            titleRun.isBold = false
+            titleRun.isItalic = true
+            titleRun.fontSize = 14
+            titleRun.fontFamily = "Times New Roman"
+            titleRun.color = "000000"
 
-        cell.setFormattedText(file.content)
 
-        val borderSize = 4
-        val borderColor = "000000"
+            //Create table
+            val table = document.createTable(1,1)
 
-        table.setTopBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
-        table.setBottomBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
-        table.setLeftBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
-        table.setRightBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
+            val cell = table.getRow(0).getCell(0)
+            table.setWidth("100%")
 
-        document.createParagraph()
+            cell.setFormattedText(file.content)
+
+            val borderSize = 4
+            val borderColor = "000000"
+
+            table.setTopBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
+            table.setBottomBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
+            table.setLeftBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
+            table.setRightBorder(XWPFTable.XWPFBorderType.SINGLE, borderSize, 0, borderColor)
+
+            document.createParagraph()
+        }catch (e: org.apache.xmlbeans.XmlException){
+            println("$e ${file.name}")
+            throw e
+        }
+
     }
 
 
