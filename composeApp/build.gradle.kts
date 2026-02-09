@@ -26,13 +26,13 @@ kotlin {
             mainClass = javaMainClass
         }
 
-        tasks.register<ShadowJar>("jvmShadowJar") { // create fat jar task
+        tasks.register<ShadowJar>("jvmShadowJar") {
             val mainCompilation = compilations["main"]
             val jvmRuntimeConfiguration = mainCompilation
                 .runtimeDependencyConfigurationName
                 .let { project.configurations[it] }
 
-            from(mainCompilation.output.allOutputs) // allOutputs == classes + resources
+            from(mainCompilation.output.allOutputs)
             configurations = listOf(jvmRuntimeConfiguration)
             archiveClassifier.set("fatjar")
             manifest.attributes("Main-Class" to javaMainClass)
