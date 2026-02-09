@@ -71,7 +71,7 @@ fun  UploadCard(
         when(status){
             is DataState.Error -> {
                 Text(
-                    "Ошибка обработки",
+                    "Ошибка обработки: ${status.message}",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.error
                 )
