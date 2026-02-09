@@ -78,7 +78,7 @@ ListingsToWordConverter is a cross-platform application for Android and Desktop 
 
 - .git
 - build
-- .idea"
-- .gradle"
+- .idea
+- .gradle
 - gradle
 
