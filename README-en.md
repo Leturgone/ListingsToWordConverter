@@ -74,4 +74,11 @@ ListingsToWordConverter is a cross-platform application for Android and Desktop 
 | YML | `.yml` |
 |Dockerfile| |
 
+## Ignored Directories
+
+- .git
+- build
+- .idea"
+- .gradle"
+- gradle
 
