@@ -128,8 +128,9 @@ class FileRepositoryImpl(
     }
 
     private fun isCodeFile(filename: String): Boolean {
+        val isDockerfile = filename == "Dockerfile"
         val extension = getFileExtension(filename).lowercase()
-        return extension in setOf("kt", "java", "js", "ts", "py", "cpp", "c", "h", "swift", "md", "xml","yml","")
+        return extension in setOf("kt", "java", "js", "ts", "py", "cpp", "c", "h", "swift", "md", "xml","yml") || isDockerfile
     }
 
     private fun isIgnoredDirectory(directory: String): Boolean{
