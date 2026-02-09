@@ -76,7 +76,7 @@ ListingsToWordConverter это кроссплатформенное прилож
 
 - .git
 - build
-- .idea"
-- .gradle"
+- .idea
+- .gradle
 - gradle
   
